@@ -1,10 +1,11 @@
-use std::collections::HashMap;
 use crate::pad_persistence_trait::PadPersistenceTrait;
+use std::collections::HashMap;
 
 pub struct PadMapPersistence {
     map: HashMap<String, String>,
 }
 
+#[allow(dead_code)]
 impl PadMapPersistence {
     pub fn new() -> Self {
         PadMapPersistence {
