@@ -13,7 +13,7 @@ impl PadService {
         self.persistence.get(key)
     }
 
-    pub fn set(&self, key: &str, value: String) -> Result<(), String> {
+    pub fn set(&mut self, key: &str, value: String) -> Result<(), String> {
         self.persistence.set(key, value)
     }
 }
