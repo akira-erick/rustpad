@@ -1,5 +1,5 @@
-use crate::pad_persistence_trait;
 use crate::pad_map_persistece;
+use crate::pad_persistence_trait;
 
 #[allow(dead_code)]
 pub struct PadService {
@@ -9,7 +9,7 @@ pub struct PadService {
 #[allow(dead_code)]
 impl PadService {
     pub fn new() -> Self {
-        PadService { 
+        PadService {
             persistence: Box::new(pad_map_persistece::PadMapPersistence::new()),
         }
     }
