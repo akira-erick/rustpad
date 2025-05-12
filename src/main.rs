@@ -25,6 +25,13 @@ async fn get_content(path: web::Path<String>, data: Data<AppState>) -> impl Resp
     }
 }
 
+async fn set_content(path: web::Path<String>, content: web::Json<Content>, data: Data<AppState>) -> impl Responder {
+    let path = path.into_inner();
+    let mut store = data.store.lock().unwrap();
+    store.insert(path.clone(), content.into_inner());
+    HttpResponse::Ok().finish()
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
 
@@ -36,6 +43,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .app_data(app_state.clone())
             .route("/rust/{path}", web::get().to(get_content))
+            .route("/rust/{path}", web::post().to(set_content))
     })
     .bind("127.0.0.1:8080")?
     .run()
