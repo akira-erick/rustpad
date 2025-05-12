@@ -1,8 +1,8 @@
-use actix_web::{web, App, HttpServer, Responder, HttpResponse};
-use serde::{Deserialize, Serialize};
-use std::sync::Mutex;
 use actix_web::web::Data;
+use actix_web::{web, App, HttpResponse, HttpServer, Responder};
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::sync::Mutex;
 
 #[derive(Serialize, Deserialize)]
 struct Content {
@@ -25,7 +25,11 @@ async fn get_content(path: web::Path<String>, data: Data<AppState>) -> impl Resp
     }
 }
 
-async fn set_content(path: web::Path<String>, content: web::Json<Content>, data: Data<AppState>) -> impl Responder {
+async fn set_content(
+    path: web::Path<String>,
+    content: web::Json<Content>,
+    data: Data<AppState>,
+) -> impl Responder {
     let path = path.into_inner();
     let mut store = data.store.lock().unwrap();
     store.insert(path.clone(), content.into_inner());
@@ -34,7 +38,6 @@ async fn set_content(path: web::Path<String>, content: web::Json<Content>, data:
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-
     let app_state = web::Data::new(AppState {
         store: Mutex::new(HashMap::new()),
     });
