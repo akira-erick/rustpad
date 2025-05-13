@@ -186,7 +186,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "actix_url_storage"
+name = "actix_rustpad"
 version = "0.1.0"
 dependencies = [
  "actix-web",
